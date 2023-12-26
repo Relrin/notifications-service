@@ -7,5 +7,7 @@ defmodule NotificationsServiceWeb.Router do
 
   scope "/api", NotificationsServiceWeb do
     pipe_through :api
+
+    get "/healthz", K8sController, :healthz
   end
 end
