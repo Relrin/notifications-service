@@ -1,0 +1,6 @@
+FROM elixir:1.16-slim
+
+RUN apt-get update && apt-get install -y git
+
+COPY src /app
+WORKDIR /app
