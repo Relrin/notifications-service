@@ -37,10 +37,9 @@ defmodule NotificationsServiceWeb do
 
   def controller do
     quote do
-      # TODO: might be not need to have anything related HTML; Clean up formats/layouts
       use Phoenix.Controller,
-        formats: [:html, :json],
-        layouts: [html: NotificationsServiceWeb.Layouts]
+        formats: [:json],
+        layouts: []
 
       import Plug.Conn
 
