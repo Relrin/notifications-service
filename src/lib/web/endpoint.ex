@@ -17,11 +17,11 @@ defmodule NotificationsServiceWeb.Endpoint do
   #
   # You should set gzip to true if you are running phx.digest
   # when deploying your static files in production.
-  plug Plug.Static,
-    at: "/",
-    from: :notifications_service,
-    gzip: false,
-    only: NotificationsServiceWeb.static_paths()
+  # plug Plug.Static,
+  #  at: "/",
+  #  from: :notifications_service,
+  #  gzip: false,
+  #  only: NotificationsServiceWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
