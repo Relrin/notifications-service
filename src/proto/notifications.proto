@@ -1,0 +1,51 @@
+syntax = "proto3";
+package session;
+
+service NotificationsService {
+  rpc Subscribe(SubscribeRequest) returns (SubscribeResponse) {}
+  rpc Unsubscribe(UnsubscribeRequest) returns (UnsubscribeResponse) {}
+  rpc BroadcastTextMessage(BroadcastTextMessageRequest) returns (BroadcastTextMessageResponse) {}
+  rpc BroadcastBinaryMessage(BroadcastBinaryMessageRequest) returns (BroadcastBinaryMessageResponse) {}
+}
+
+message SubscribeRequest {
+  // The unique player ids, that should listen for updates.
+  // Defined as a list to allow batched subscribe requests.
+  repeated string player_ids = 1;
+  // List of channels to subscribe to.
+  repeated string channels = 2;
+}
+
+message SubscribeResponse {
+}
+
+message UnsubscribeRequest {
+  // The unique player ids, that should unsubscribe.
+  // Defined as a list to allow batched unsubscribe requests.
+  repeated string player_ids = 1;
+  // List of channels to unsubscribe from.
+  repeated string channels = 2;
+}
+
+message UnsubscribeResponse {
+}
+
+message BroadcastTextMessageRequest {
+  // Define a list of channels that should consume the message.
+  repeated string channels = 1;
+  // Defines a message in the text format to be sent to each channel.
+  string message = 2;
+}
+
+message BroadcastTextMessageResponse {
+}
+
+message BroadcastBinaryMessageRequest {
+  // Define a list of channels that should consume the message.
+  repeated string channels = 1;
+  // Defines a message in the binary format to be sent to each channel.
+  bytes message = 2;
+}
+
+message BroadcastBinaryMessageResponse {
+}
