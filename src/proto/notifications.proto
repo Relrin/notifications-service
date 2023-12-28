@@ -1,5 +1,5 @@
 syntax = "proto3";
-package session;
+package notifications;
 
 service NotificationsService {
   rpc Subscribe(SubscribeRequest) returns (SubscribeResponse) {}
