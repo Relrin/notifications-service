@@ -40,6 +40,7 @@ defmodule NotificationsService.MixProject do
       {:phoenix, "~> 1.7.10"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
+      {:notifications_proto, path: "./lib/proto", app: false, compile: "cd ../.. && mix proto"},
     ]
   end
 

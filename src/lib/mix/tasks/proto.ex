@@ -3,6 +3,6 @@ defmodule Mix.Tasks.Proto do
   use Mix.Task
 
   def run(_) do
-    System.cmd("protoc", ["--elixir_out=./lib/", "proto/notifications.proto"])
+    System.cmd("protoc", ["--elixir_out=plugins=grpc:./lib/", "proto/notifications.proto"])
   end
 end
