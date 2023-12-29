@@ -25,7 +25,15 @@ After the installation process, you would need only to connect to the applicatio
 ```
 docker-compose -f docker-compose.dev.yml exec app bash
 ```
-and then start the application itself:
+
+Then we would need to install a protobuf plugin for Elixir, generate protos & pull dependencies:
+```
+mix setup_protobuf && export PATH=~/.mix/escripts:$PATH
+protoc --elixir_out=plugins=grpc:./lib/ proto/notifications.proto
+mix deps.get
+```
+
+and start the application itself:
 ```
 mix run
 ```
@@ -47,3 +55,4 @@ If you're wondering how this microservice was built, it works or in general you 
   - [Phoenix Channels](https://hexdocs.pm/phoenix/channels.html)
 
 For more information you can also check the [Community](https://hexdocs.pm/phoenix/community.html) page of the Phoenix framework.
+
