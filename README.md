@@ -6,10 +6,10 @@ Built on the top of Elixir & Phoenix framework to provide better experience on h
 
 ### Features
 - [x] Uses latest Elixir & Phoenix framework
-- [ ] Uses Redis as a common service to broadcast messages to subscribers
-- [x] Ability to switch from Redis to Elixir OTP features, that allow directly exchanging notifications between servers
+- [ ] Utilizes Redis as a service to broadcast messages to subscribers
+- [x] Ability to switch from Redis to Elixir OTP features, that allow directly broadcasting notifications between servers
 - [ ] Exposes PubSub communications over WebSocket connections (or potentially switch back to long-polling)
-- [ ] Exposes Protobuf endpoints that allows to talk the service
+- [x] Exposes Protobuf endpoints that allows to talk the service
 - [ ] Compatible with PubNub messages
 
 ### Running a dev environment
@@ -19,7 +19,7 @@ First, we would need to start up all the dependencies via a single docker compos
 ```
 docker-compose -f docker-compose.dev.yaml up -d
 ```
-This command will download all required Docker images for running an Elixir app & Riak KV database.
+This command will download all required Docker images for running an Elixir app & Redis database.
 
 After the installation process, you would need only to connect to the application container:
 ```
@@ -29,3 +29,21 @@ and then start the application itself:
 ```
 mix run
 ```
+
+### Clients
+The list of available and officially supported clients can be found [here](https://hexdocs.pm/phoenix/channels.html#client-libraries)
+
+References to what under the hood of the client:
+- [Graeme Hill's Dev Blog - Websocket Clients and Phoenix Channels](http://graemehill.ca/websocket-clients-and-phoenix-channels/)
+- [GitHub - Phoenix.JS client source code](https://github.com/phoenixframework/phoenix/blob/v1.2/web/static/js/phoenix.js)
+
+### Recommended resources to read
+If you're wondering how this microservice was built, it works or in general you would like to know more about the Elixir, then I would recommend following books & articles:
+- [Elixir in Action](https://www.manning.com/books/elixir-in-action-second-edition)
+- [Real-Time Phoenix: Build Highly Scalable Systems with Channels](https://pragprog.com/titles/sbsockets/real-time-phoenix/) 
+- [Phoenix Websockets under a microscope](https://zorbash.com/post/phoenix-websockets-under-a-microscope/)
+- Official Phoenix framework documentation:
+  - [Phoenix Controllers](https://hexdocs.pm/phoenix/controllers.html)
+  - [Phoenix Channels](https://hexdocs.pm/phoenix/channels.html)
+
+For more information you can also check the [Community](https://hexdocs.pm/phoenix/community.html) page of the Phoenix framework.
