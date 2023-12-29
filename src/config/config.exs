@@ -13,7 +13,7 @@ config :notifications_service,
 # Configures the endpoint
 config :notifications_service, NotificationsServiceWeb.Endpoint,
   url: [host: "127.0.0.1"],
-  adapter: Bandit.PhoenixAdapter,
+  adapter: Phoenix.Endpoint.Cowboy2Adapter,
   render_errors: [
     formats: [json: NotificationsServiceWeb.ErrorJSON],
     layout: false

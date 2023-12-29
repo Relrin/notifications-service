@@ -34,10 +34,11 @@ defmodule NotificationsService.MixProject do
     [
       {:bandit, "~> 1.1"},
       {:dns_cluster, "~> 0.1.1"},
-      {:grpc, "~> 0.7.0"},
+      {:grpc, "~> 0.5.0"},
       {:google_protos, "~> 0.3.0"},
       {:jason, "~> 1.4"},
       {:phoenix, "~> 1.7.10"},
+      {:phoenix_pubsub, "~> 2.1"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:notifications_proto, path: "./lib/proto", app: false, compile: "cd ../.. && mix proto"},
