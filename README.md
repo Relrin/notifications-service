@@ -29,8 +29,8 @@ docker-compose -f docker-compose.dev.yml exec app bash
 Then we would need to install a protobuf plugin for Elixir, generate protos & pull dependencies:
 ```
 mix setup_protobuf && export PATH=~/.mix/escripts:$PATH
-mix proto
 mix deps.get
+mix proto
 ```
 
 and start the application itself:
