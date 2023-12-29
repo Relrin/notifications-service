@@ -8,7 +8,8 @@ defmodule NotificationsService.MixProject do
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
-      deps: deps()
+      deps: deps(),
+      aliases: aliases(),
     ]
   end
 
@@ -31,12 +32,21 @@ defmodule NotificationsService.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:bandit, ">= 0.0.0"},
+      {:dns_cluster, "~> 0.1.1"},
+      {:grpc, "~> 0.7.0"},
+      {:google_protos, "~> 0.3.0"},
+      {:jason, "~> 1.2"},
       {:phoenix, "~> 1.7.10"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
-      {:jason, "~> 1.2"},
-      {:dns_cluster, "~> 0.1.1"},
-      {:bandit, ">= 0.0.0"}
+    ]
+  end
+
+  defp aliases do
+    [
+      # https://github.com/elixir-protobuf/protobuf?tab=readme-ov-file#usage
+      setup_protobuf: ["escript.install hex protobuf --force"]
     ]
   end
 end
