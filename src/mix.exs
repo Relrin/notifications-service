@@ -32,11 +32,11 @@ defmodule NotificationsService.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:bandit, ">= 0.0.0"},
+      {:bandit, "~> 1.1"},
       {:dns_cluster, "~> 0.1.1"},
       {:grpc, "~> 0.7.0"},
       {:google_protos, "~> 0.3.0"},
-      {:jason, "~> 1.2"},
+      {:jason, "~> 1.4"},
       {:phoenix, "~> 1.7.10"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
