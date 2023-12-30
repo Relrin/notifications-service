@@ -3,6 +3,7 @@ defmodule NotificationsServiceWeb.PubSubSocket do
 
   ## Channels
   channel "ping", NotificationsServiceWeb.PingChannel
+  channel "player:*", NotificationsServiceWeb.PlayerChannel
 
   def connect(_params, socket, _connect_info) do
     {:ok, socket}
