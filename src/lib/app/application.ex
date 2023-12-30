@@ -11,7 +11,14 @@ defmodule NotificationsService.Application do
       NotificationsServiceWeb.Telemetry,
       {GRPC.Server.Supervisor, endpoint: NotificationsServiceGrpc.Endpoint, port: 8080, start_server: true},
       {DNSCluster, query: Application.get_env(:notifications_service, :dns_cluster_query) || :ignore},
-      {Phoenix.PubSub, name: NotificationsService.PubSub},
+      {Phoenix.PubSub,
+        adapter: Phoenix.PubSub.Redis,
+        name: NotificationsService.PubSub,
+        node_name: System.get_env("NODE", "NotificationsService"),
+        host: System.get_env("REDIS_HOST", "redis"),
+        #password: System.get_env("REDIS_PORT", ""),
+        redis_pool_size: 10,
+      },
       # Start a worker by calling: NotificationsService.Worker.start_link(arg)
       # {NotificationsService.Worker, arg},
       # Start to serve requests, typically the last entry
