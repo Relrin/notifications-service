@@ -38,6 +38,7 @@ defmodule NotificationsService.MixProject do
       {:jason, "~> 1.4"},
       {:phoenix, "~> 1.7.10"},
       {:phoenix_pubsub, "~> 2.1"},
+      {:plug_cowboy, "~> 2.6"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
       {:notifications_proto, path: "./lib/proto", app: false, compile: false},

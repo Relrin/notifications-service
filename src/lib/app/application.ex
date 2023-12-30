@@ -9,7 +9,7 @@ defmodule NotificationsService.Application do
   def start(_type, _args) do
     children = [
       NotificationsServiceWeb.Telemetry,
-      {GRPC.Server.Supervisor, {NotificationsServiceGrpc.Endpoint, 8080}},
+      {GRPC.Server.Supervisor, endpoint: NotificationsServiceGrpc.Endpoint, port: 8080, start_server: true},
       {DNSCluster, query: Application.get_env(:notifications_service, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: NotificationsService.PubSub},
       # Start a worker by calling: NotificationsService.Worker.start_link(arg)
