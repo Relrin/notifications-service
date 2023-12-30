@@ -37,7 +37,7 @@ defmodule NotificationsService.MixProject do
       {:google_protos, "~> 0.3.0"},
       {:jason, "~> 1.4"},
       {:phoenix, "~> 1.7.10"},
-      {:phoenix_pubsub, "~> 2.1"},
+      {:phoenix_pubsub_redis, "~> 3.0.0"},
       {:plug_cowboy, "~> 2.6"},
       {:telemetry_metrics, "~> 0.6"},
       {:telemetry_poller, "~> 1.0"},
