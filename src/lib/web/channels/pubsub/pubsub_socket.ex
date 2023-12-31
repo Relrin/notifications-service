@@ -2,15 +2,14 @@ defmodule NotificationsServiceWeb.PubSubSocket do
   use Phoenix.Socket
   require Logger
 
-  @one_day 86400
-  @namespace "pubsub"
+  alias NotificationsServiceWeb.{PubSubToken}
 
-  ## Channels
+  # Channels
   channel "ping", NotificationsServiceWeb.PingChannel
   channel "user:*", NotificationsServiceWeb.UserChannel
 
   def connect(%{"token" => token}, socket) do
-    case verify(socket, token) do
+    case PubSubToken.verify(socket, token) do
       {:ok, user_id} ->
         socket = assign(socket, :user_id, user_id)
         {:ok, socket}
@@ -28,8 +27,4 @@ defmodule NotificationsServiceWeb.PubSubSocket do
 
   def id(%{assigns: %{user_id: user_id}}),
     do: "pubsub_socket:#{user_id}"
-
-  defp verify(socket, token),
-    do:
-      Phoenix.Token.verify(socket, @namespace, token, max_age: @one_day)
 end
