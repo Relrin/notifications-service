@@ -6,11 +6,11 @@ Built on the top of Elixir & Phoenix framework to provide better experience on h
 
 ### Features
 - [x] Uses latest Elixir & Phoenix framework
-- [ ] Utilizes Redis as a service to broadcast messages to subscribers
+- [x] Utilizes Redis as a service to broadcast messages across server instances 
 - [x] Ability to switch from Redis to Elixir OTP features, that allow directly broadcasting notifications between servers
-- [ ] Exposes PubSub communications over WebSocket connections (or potentially switch back to long-polling)
+- [x] Exposes PubSub communications over WebSocket connections (or potentially switch back to long-polling)
 - [x] Exposes Protobuf endpoints that allows to talk the service
-- [ ] Compatible with PubNub messages
+- [x] Authorization & authentication for the WebSocket connection & channels
 
 ### Running a dev environment
 To start up a service locally you would need to have installed Docker. 
@@ -43,6 +43,7 @@ The list of available and officially supported clients can be found [here](https
 
 References to what under the hood of the client:
 - [Graeme Hill's Dev Blog - Websocket Clients and Phoenix Channels](http://graemehill.ca/websocket-clients-and-phoenix-channels/)
+- [Phoenix guides: Channels](https://github.com/jeffkreeftmeijer/phoenix_guides-examples/blob/master/channels.md)
 - [GitHub - Phoenix.JS client source code](https://github.com/phoenixframework/phoenix/blob/v1.2/web/static/js/phoenix.js)
 
 ### Recommended resources to read
