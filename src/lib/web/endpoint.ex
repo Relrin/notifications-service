@@ -8,7 +8,8 @@ defmodule NotificationsServiceWeb.Endpoint do
     store: :cookie,
     key: "_notifications_service_key",
     signing_salt: "EmkNCG5q",
-    same_site: "Lax"
+    same_site: "Lax",
+    encryption_salt: Application.compile_env(:notifications_service, [NotificationsServiceWeb.Endpoint, :encryption_salt])
   ]
 
   socket "/pubsub", NotificationsServiceWeb.PubSubSocket,

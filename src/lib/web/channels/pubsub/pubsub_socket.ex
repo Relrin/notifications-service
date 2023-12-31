@@ -1,13 +1,35 @@
 defmodule NotificationsServiceWeb.PubSubSocket do
   use Phoenix.Socket
+  require Logger
+
+  @one_day 86400
+  @namespace "pubsub"
 
   ## Channels
   channel "ping", NotificationsServiceWeb.PingChannel
   channel "player:*", NotificationsServiceWeb.PlayerChannel
 
-  def connect(_params, socket, _connect_info) do
-    {:ok, socket}
+  def connect(%{"token" => token}, socket) do
+    case verify(socket, token) do
+      {:ok, user_id} ->
+        socket = assign(socket, :user_id, user_id)
+        {:ok, socket}
+
+      {:error, err} ->
+        Logger.error("#{__MODULE__} connect error #{inspect(err)}")
+        :error
+    end
   end
 
-  def id(_socket), do: nil
+  def connect(_, _socket) do
+    Logger.error("#{__MODULE__} connect error missing params")
+    :error
+  end
+
+  def id(%{assigns: %{user_id: user_id}}),
+    do: "pubsub_socket:#{user_id}"
+
+  defp verify(socket, token),
+    do:
+      Phoenix.Token.verify(socket, @namespace, token, max_age: @one_day)
 end
