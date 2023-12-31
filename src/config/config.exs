@@ -19,7 +19,8 @@ config :notifications_service, NotificationsServiceWeb.Endpoint,
     layout: false
   ],
   pubsub_server: NotificationsService.PubSub,
-  live_view: [signing_salt: "zWJLFl5Q"]
+  secret_key_base: System.get_env("SECRET_KEY_BASE", "generate your own token with `mix phx.gen.secret`"),
+  encryption_salt: System.get_env("ENCRYPTION_SALT", "some encryption salt key")
 
 # Configures Elixir's Logger
 config :logger, :console,
