@@ -1,9 +1,9 @@
-defmodule NotificationsServiceWeb.ConnCase do
+defmodule NotificationsServiceWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
-  tests that require setting up a connection.
+  channel tests.
 
-  Such tests rely on `Phoenix.ConnTest` and also
+  Such tests rely on `Phoenix.ChannelTest` and also
   import other functionality to make it easier
   to build common data structures and query the data layer.
 
@@ -11,7 +11,7 @@ defmodule NotificationsServiceWeb.ConnCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use NotificationsServiceWeb.ConnCase, async: true`, although
+  by setting `use NotificationsServiceWeb.ChannelCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -19,19 +19,16 @@ defmodule NotificationsServiceWeb.ConnCase do
 
   using do
     quote do
+      # Import conveniences for testing with channels
+      import Phoenix.ChannelTest
+      import NotificationsServiceWeb.ChannelCase
+
       # The default endpoint for testing
       @endpoint NotificationsServiceWeb.Endpoint
-
-      use NotificationsServiceWeb, :verified_routes
-
-      # Import conveniences for testing with connections
-      import Plug.Conn
-      import Phoenix.ConnTest
-      import NotificationsServiceWeb.ConnCase
     end
   end
 
   setup _tags do
-    {:ok, conn: Phoenix.ConnTest.build_conn()}
+    :ok
   end
 end
