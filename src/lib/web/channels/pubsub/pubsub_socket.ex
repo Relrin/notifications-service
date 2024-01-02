@@ -7,6 +7,7 @@ defmodule NotificationsServiceWeb.PubSubSocket do
   # Channels
   channel "ping", NotificationsServiceWeb.PingChannel
   channel "user:*", NotificationsServiceWeb.UserChannel
+  channel "group:*", NotificationsServiceWeb.GroupChannel
 
   def connect(%{"token" => token}, socket) do
     case PubSubToken.verify(socket, token) do
