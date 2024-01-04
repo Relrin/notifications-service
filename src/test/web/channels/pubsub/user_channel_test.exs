@@ -20,7 +20,7 @@ defmodule NotificationsServiceWeb.UserChannelTest do
            end) =~ "[error] #{UserChannel} failed 1 != 2"
   end
 
-  test "subscribe_internal/3 assigns new topic to listen" do
+  test "subscribe/3 assigns new topic to listen" do
     topics = ["group:12345", "game"]
     expected_topics = Enum.reverse(topics)
 
@@ -29,7 +29,7 @@ defmodule NotificationsServiceWeb.UserChannelTest do
     |> validate_assigned_topics(expected_topics)
   end
 
-  test "subscribe_internal/3 assigns new topic to listen and avoid duplicates" do
+  test "subscribe/3 assigns new topic to listen and avoid duplicates" do
     topics = ["group:12345", "game", "game"]
     expected_topics = Enum.reverse(Enum.dedup(topics))
 
@@ -38,7 +38,7 @@ defmodule NotificationsServiceWeb.UserChannelTest do
     |> validate_assigned_topics(expected_topics)
   end
 
-  test "unsubscribe_internal/3 removes topics" do
+  test "unsubscribe/3 removes topics" do
     topics = ["group:12345", "game"]
     expected_topics = Enum.reverse(topics)
 
@@ -49,7 +49,7 @@ defmodule NotificationsServiceWeb.UserChannelTest do
     |> validate_assigned_topics([])
   end
 
-  test "unsubscribe_internal/3 removes topics (and excluding duplicates)" do
+  test "unsubscribe/3 removes topics (and excluding duplicates)" do
     topics = ["group:12345", "game", "game"]
     expected_topics = Enum.reverse(Enum.dedup(topics))
 
