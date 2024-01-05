@@ -2,6 +2,8 @@ defmodule NotificationsServiceWeb.UserChannel do
   use Phoenix.Channel
   require Logger
 
+  alias Phoenix.Socket.Broadcast
+
   intercept ["subscribe", "unsubscribe"]
 
   def join("user:" <> request_user_id, _payload, socket = %{assigns: %{user_id: user_id}}) do
@@ -11,6 +13,11 @@ defmodule NotificationsServiceWeb.UserChannel do
       Logger.error("#{__MODULE__} failed #{request_user_id} != #{user_id}")
       {:error, %{reason: "unauthorized"}}
     end
+  end
+
+  def handle_info(%Broadcast{topic: _, event: event, payload: payload}, socket) do
+    push(socket, event, payload)
+    {:noreply, socket}
   end
 
   def handle_out("subscribe", %{topics: topics}, socket) do
