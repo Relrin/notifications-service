@@ -20,6 +20,23 @@ defmodule NotificationsServiceWeb.UserChannelTest do
            end) =~ "[error] #{UserChannel} failed 1 != 2"
   end
 
+  test "handle_info/2 is triggerred for generic broadcasts" do
+    topics = ["game"]
+
+    connect()
+    |> broadcast_subscribe_topics(topics)
+    |> validate_assigned_topics(topics)
+    |> broadcast_message("game", %{message: "update"})
+
+    assert {:messages,
+      [
+        %Phoenix.Socket.Message{
+          event: "game",
+          payload: %{message: "update"}
+        },
+      ]} = Process.info(self(), :messages)
+  end
+
   test "subscribe/3 assigns new topic to listen" do
     topics = ["group:12345", "game"]
     expected_topics = Enum.reverse(topics)
@@ -79,6 +96,11 @@ defmodule NotificationsServiceWeb.UserChannelTest do
 
   defp validate_assigned_topics(socket, expected_topics) do
     assert :sys.get_state(socket.channel_pid).assigns.topics == expected_topics
+    socket
+  end
+
+  defp broadcast_message(socket, topic, payload) do
+    assert broadcast_from!(socket, topic, payload) == :ok
     socket
   end
 end
