@@ -30,9 +30,9 @@ message UnsubscribeResponse {
 }
 
 message BroadcastTextMessageRequest {
-  // Define a list of channels that should consume the message.
+  // Define a list of topics that should retrieve the message.
   repeated string topics = 1;
-  // Defines a message in the text format to be sent to each channel.
+  // Defines a message in the text format to be sent to each topic.
   string message = 2;
 }
 
