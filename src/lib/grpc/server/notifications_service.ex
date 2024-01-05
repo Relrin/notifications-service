@@ -13,27 +13,24 @@ defmodule NotificationsServiceGrpc.NotificationsService.Server do
     BroadcastTextMessageResponse,
   }
 
-  def subscribe(%SubscribeRequest{player_ids: player_ids, topics: topics}, _stream) do
-    Enum.each(player_ids, fn(player_id) ->
-      NotificationsServiceWeb.Endpoint.broadcast!("player:#{player_id}", "subscribe", %{topics: topics})
+  def subscribe(%SubscribeRequest{user_ids: user_ids, topics: topics}, _stream) do
+    Enum.each(user_ids, fn(user_id) ->
+      NotificationsServiceWeb.Endpoint.broadcast!("user:#{user_id}", "subscribe", %{topics: topics})
     end)
 
     %SubscribeResponse{}
   end
 
-  def unsubscribe(%UnsubscribeRequest{player_ids: player_ids, topics: topics}, _stream) do
-    Enum.each(player_ids, fn(player_id) ->
-      NotificationsServiceWeb.Endpoint.broadcast!("player:#{player_id}", "unsubscribe", %{topics: topics})
+  def unsubscribe(%UnsubscribeRequest{user_ids: user_ids, topics: topics}, _stream) do
+    Enum.each(user_ids, fn(user_id) ->
+      NotificationsServiceWeb.Endpoint.broadcast!("user:#{user_id}", "unsubscribe", %{topics: topics})
     end)
 
     %UnsubscribeResponse{}
   end
 
-  def broadcast_text_message(%BroadcastTextMessageRequest{topics: topics, message: message}, _stream) do
-    Enum.each(topics, fn(topic) ->
-      Phoenix.PubSub.broadcast(NotificationsService.PubSub, topic, {:message, %{payload: message}})
-    end)
-
+  def broadcast_text_message(%BroadcastTextMessageRequest{topic: topic, event: event, message: message}, _stream) do
+    NotificationsServiceWeb.Endpoint.broadcast(topic, event, message)
     %BroadcastTextMessageResponse{}
   end
 end

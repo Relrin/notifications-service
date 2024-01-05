@@ -44,11 +44,8 @@ defmodule NotificationsService.Application do
       }
     else
       {Phoenix.PubSub,
-        adapter: Phoenix.PubSub.Redis,
-        name: NotificationsService.PubSub,
-        node_name: System.get_env("NODE", "NotificationsService"),
-        host: System.get_env("REDIS_HOST", "redis"),
-        redis_pool_size: 10,
+        adapter: Phoenix.PubSub.PG2,
+        name: NotificationsService.PubSub
       }
     end
   end

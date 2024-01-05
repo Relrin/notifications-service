@@ -13,6 +13,7 @@ defmodule NotificationsServiceWeb.PubSubSocket do
     case PubSubToken.verify(socket, token) do
       {:ok, user_id} ->
         socket = assign(socket, :user_id, user_id)
+        socket = assign(socket, :topics, [])
         {:ok, socket}
 
       {:error, err} ->

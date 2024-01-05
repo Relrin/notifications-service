@@ -6,4 +6,6 @@ defmodule NotificationsServiceWeb.GroupChannel do
     Logger.error("#{__MODULE__} User #{user_id} tried to join the group:#{request_group_id} channel")
     {:error, %{reason: "unauthorized"}}
   end
+
+
 end
