@@ -21,60 +21,17 @@ defmodule NotificationsServiceWeb.UserChannelTest do
   end
 
   test "handle_info/2 is triggerred for generic broadcasts" do
-    topics = ["game"]
-
     connect()
-    |> broadcast_subscribe_topics(topics)
-    |> validate_assigned_topics(topics)
-    |> broadcast_message("game", %{message: "update"})
+    |> broadcast_message("subscribe", %{topic: "group:123"})
 
     assert {:messages,
       [
         %Phoenix.Socket.Message{
-          event: "game",
-          payload: %{message: "update"}
+          topic: "user:1",
+          event: "subscribe",
+          payload: %{topic: "group:123"}
         },
       ]} = Process.info(self(), :messages)
-  end
-
-  test "subscribe/3 assigns new topic to listen" do
-    topics = ["group:12345", "game"]
-    expected_topics = Enum.reverse(topics)
-
-    connect()
-    |> broadcast_subscribe_topics(topics)
-    |> validate_assigned_topics(expected_topics)
-  end
-
-  test "subscribe/3 assigns new topic to listen and avoid duplicates" do
-    topics = ["group:12345", "game", "game"]
-    expected_topics = Enum.reverse(Enum.dedup(topics))
-
-    connect()
-    |> broadcast_subscribe_topics(topics)
-    |> validate_assigned_topics(expected_topics)
-  end
-
-  test "unsubscribe/3 removes topics" do
-    topics = ["group:12345", "game"]
-    expected_topics = Enum.reverse(topics)
-
-    connect()
-    |> broadcast_subscribe_topics(topics)
-    |> validate_assigned_topics(expected_topics)
-    |> broadcast_unsubscribe_topics(topics)
-    |> validate_assigned_topics([])
-  end
-
-  test "unsubscribe/3 removes topics (and excluding duplicates)" do
-    topics = ["group:12345", "game", "game"]
-    expected_topics = Enum.reverse(Enum.dedup(topics))
-
-    connect()
-    |> broadcast_subscribe_topics(topics)
-    |> validate_assigned_topics(expected_topics)
-    |> broadcast_unsubscribe_topics(topics)
-    |> validate_assigned_topics([])
   end
 
   defp connect() do
@@ -84,23 +41,8 @@ defmodule NotificationsServiceWeb.UserChannelTest do
     socket
   end
 
-  defp broadcast_subscribe_topics(socket, topics) do
-    assert broadcast_from!(socket, "subscribe", %{topics: topics}) == :ok
-    socket
-  end
-
-  defp broadcast_unsubscribe_topics(socket, topics) do
-    assert broadcast_from!(socket, "unsubscribe", %{topics: topics}) == :ok
-    socket
-  end
-
-  defp validate_assigned_topics(socket, expected_topics) do
-    assert :sys.get_state(socket.channel_pid).assigns.topics == expected_topics
-    socket
-  end
-
-  defp broadcast_message(socket, topic, payload) do
-    assert broadcast_from!(socket, topic, payload) == :ok
+  defp broadcast_message(socket, event, payload) do
+    assert broadcast_from!(socket, event, payload) == :ok
     socket
   end
 end
